@@ -1,0 +1,1 @@
+cp dags/* ~/airflow/dags/ 
