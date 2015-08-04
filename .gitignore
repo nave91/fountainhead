@@ -4,3 +4,6 @@ Vagrantfile*
 .vagrant
 .cache/*
 .cache
+.ssh/*
+.ssh
+.gitconfig
