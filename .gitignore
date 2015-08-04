@@ -1,0 +1,6 @@
+*.pyc
+Vagrantfile*
+.vagrant/*
+.vagrant
+.cache/*
+.cache
