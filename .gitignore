@@ -1,10 +1,4 @@
+*~
 *.pyc
 Vagrantfile*
-.vagrant/*
-.vagrant
-.cache/*
-.cache
-.ssh/*
-.ssh
-.gitconfig
 .*
