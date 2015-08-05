@@ -16,5 +16,7 @@
 
   > airflow backfill get_orders_from_postgres_single -s 2015-08-02 -e 2015-08-02
 
-# Run a job
+# Run a task
+
+  > airflow backfill get_orders_from_postgres_single s3_to_redshift 2015-08-05
  
