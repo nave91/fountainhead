@@ -1,0 +1,2 @@
+airflow # http://airflow.readthedocs.org/
+psycopg2 # http://initd.org/psycopg/
