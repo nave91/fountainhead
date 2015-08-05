@@ -3,9 +3,12 @@ from airflow.operators import BashOperator, PythonOperator
 from airflow.hooks import PostgresHook, S3Hook
 from datetime import datetime, timedelta
 import csv
+import os
 
 start_date = datetime.utcnow() - timedelta(days=10)
 end_date = start_date + timedelta(days=20)
+aws_key = os.environ.get('aws_key')
+aws_pass = os.environ.get('aws_pass')
 
 default_args = {
     'owner': 'naveen',
@@ -37,7 +40,7 @@ def s3_call(file_, bucket_name):
     s3hook = S3Hook(s3_conn_id="naveen_s3")
     s3hook.load_file(
         filename=file_,
-        key=task_date.strftime('latest'),
+        key='latest',
         bucket_name=bucket_name)
 
 def get_orders_with_bellhops(**kwargs):
@@ -69,7 +72,7 @@ def store_orders_with_bellhops(**kwargs):
 def transfer_orders_with_bellhops(**kwargs):
     drop_table = "drop table order_assignments;"
     create_table = "create table order_assignments(reserve_date varchar(50), ord_number varchar(50), bellhops varchar(5000));"
-    load_data = "copy order_assignments from 's3://naveen-airflow/latest' credentials 'aws_access_key_id=AKIAJWFVJELCY6SZI7EQ;aws_secret_access_key=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' delimiter ',';"
+    load_data = "copy order_assignments from 's3://naveen-airflow/latest' credentials 'aws_access_key_id=" + aws_key + ";aws_secret_access_key=" + aws_pass + "' delimiter ',';"
     check_table = "select exists (select 1 from information_schema.tables where table_name='order_assignments');" 
     #sqls = [drop_table, create_table, load_data]
     table_exists = redshift_call(check_table,'get')[0][0]
